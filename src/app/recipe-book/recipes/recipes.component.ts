@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
+  providers: [RecipeService],
 })
 export class RecipesComponent implements OnInit {
   selectedRecipe: Recipe;
-  constructor() {}
+  constructor(private recipeService: RecipeService) {}
 
-  ngOnInit(): void {}
-
-  onSelectRecipe(data: Recipe) {
-    this.selectedRecipe = data;
+  ngOnInit(): void {
+    this.recipeService.recipeSelected.subscribe((recipe: Recipe) => {
+      this.selectedRecipe = recipe;
+    });
   }
 }
